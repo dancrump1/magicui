@@ -1,26 +1,62 @@
-import { cn } from "@/lib/utils";
-import { ComponentPropsWithoutRef } from "react";
+"use client";
 
-interface BorderBeamProps extends ComponentPropsWithoutRef<"div"> {
+import { cn } from "@/lib/utils";
+import { motion, MotionStyle, Transition } from "motion/react";
+
+interface BorderBeamProps {
+  /**
+   * The size of the border beam.
+   */
   size?: number;
+  /**
+   * The duration of the border beam.
+   */
   duration?: number;
-  borderWidth?: number;
-  anchor?: number;
-  colorFrom?: string;
-  colorTo?: string;
+  /**
+   * The delay of the border beam.
+   */
   delay?: number;
+  /**
+   * The color of the border beam from.
+   */
+  colorFrom?: string;
+  /**
+   * The color of the border beam to.
+   */
+  colorTo?: string;
+  /**
+   * The motion transition of the border beam.
+   */
+  transition?: Transition;
+  /**
+   * The class name of the border beam.
+   */
+  className?: string;
+  /**
+   * The style of the border beam.
+   */
+  style?: React.CSSProperties;
+  /**
+   * Whether to reverse the animation direction.
+   */
+  reverse?: boolean;
+  /**
+   * The initial offset position (0-100).
+   */
+  initialOffset?: number;
 }
 
 export const BorderBeam = ({
   className,
-  size = 200,
-  duration = 15,
-  anchor = 90,
-  borderWidth = 1.5,
+  size = 50,
+  delay = 0,
+  duration = 6,
   colorFrom = "#ffaa40",
   colorTo = "#9c40ff",
-  delay = 0,
-  ...props
+  transition,
+  style,
+  reverse = false,
+  initialOffset = 0,
 }: BorderBeamProps) => {
   return (
     <div
@@ -43,7 +79,7 @@ export const BorderBeam = ({
 
         // pseudo styles
         "after:absolute after:aspect-square after:w-[calc(var(--size)*1px)] after:animate-border-beam after:[animation-delay:var(--delay)] after:[background:linear-gradient(to_left,var(--color-from),var(--color-to),transparent)] after:[offset-anchor:calc(var(--anchor)*1%)_50%] after:[offset-path:rect(0_auto_auto_0_round_calc(var(--size)*1px))]",
-        className,
+        className
       )}
       {...props}
     />
